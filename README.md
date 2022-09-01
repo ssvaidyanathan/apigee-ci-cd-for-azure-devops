@@ -1,10 +1,6 @@
-# apigee-ci-cd
+# apigee-ci-cd-for-azure-devops
 
 - Fork this repo
-- In the [pom file](pom.xml), update the `apigee.org` property under `test` and `prod` POM profile to point to your Apigee org
-- The repo has a Jenkinsfile with the build info, so you can automatically import this repo using the Blue Ocean UI
-- To run it locally, execute `mvn clean install -P{profile} -Dapigee.config.options=update -Dfile={path_to_service_account_file}`
-- Please configure the Apigee service account crendetials in Jenkins. The current Jenkinsfile uses `apigee-service-account` as the ID. If you wish to change that, please update the Jenkinsfile with the provided ID under the `environment` section - `APIGEE_SA_CREDS = credentials('apigee-service-account')`
-![](./media/apigee-credentials.png)
-
-Pepsico!!
+- In the [pom file](pom.xml), update the `apigee.org`,`domain`  property under `dev`, `test` and `prod` POM profile to point to your Apigee org. Feel free to update the pom to your setup
+- To run it locally, execute `mvn clean install -P{profile} -Dfile={path_to_service_account_file}`
+- Create a Service Account in GCP IAM with `Apigee Org Admin` role and download the JSON file. Upload the same as a Secure file in DevOps as `config.json`. This is used in the pipeline to pass to the Maven plugin to generate the token to call the Apigee Management APIs
