@@ -26,18 +26,18 @@ steps:
 
 # Set variables
 - bash: |
-    echo "##vso[task.setvariable variable=APIGEE_ORG]ssv-apigee-asm-demo"
+    echo "##vso[task.setvariable variable=DEPLOYMENT_SUFFIX]"
     if [ "$(Build.SourceBranchName)" = "main" ]
     then
+      echo "##vso[task.setvariable variable=APIGEE_ORG]bap-amer-coe-demo1"
       echo "##vso[task.setvariable variable=APIGEE_PROFILE]test"
-      echo "##vso[task.setvariable variable=DEPLOYMENT_SUFFIX]"
     elif [ "$(Build.SourceBranchName)" = "prod" ]
     then
+      echo "##vso[task.setvariable variable=APIGEE_ORG]sai-apigeex-demo"
       echo "##vso[task.setvariable variable=APIGEE_PROFILE]prod"
-      echo "##vso[task.setvariable variable=DEPLOYMENT_SUFFIX]"
     else
+      echo "##vso[task.setvariable variable=APIGEE_ORG]bap-amer-coe-demo1"
       echo "##vso[task.setvariable variable=APIGEE_PROFILE]dev"
-      echo "##vso[task.setvariable variable=DEPLOYMENT_SUFFIX]azureops"
     fi
     mvn clean
   displayName: 'Clean'
@@ -110,7 +110,7 @@ steps:
     title: API
 
 # the devportal username and password are stored as Pipeline variables as APIGEE_DEVPORTAL_USERNAME and APIGEE_DEVPORTAL_PASSWORD
-- bash: |
-   mvn -ntp com.apigee.smartdocs.config:apigee-smartdocs-maven-plugin:apidoc@smartdocs-deploy -Pprod -Dorg=$(APIGEE_ORG) -Dpurl=$(APIGEE_DEVPORTAL_URL) -Dpusername=$(APIGEE_DEVPORTAL_USERNAME) -Dppassword=$(APIGEE_DEVPORTAL_PASSWORD)
-  displayName: 'Publish Open API Spec'
-  condition: eq(variables['Build.SourceBranchName'], 'prod')
+#- bash: |
+  # mvn -ntp com.apigee.smartdocs.config:apigee-smartdocs-maven-plugin:apidoc@smartdocs-deploy -Pprod -Dorg=$(APIGEE_ORG) -Dpurl=$(APIGEE_DEVPORTAL_URL) -Dpusername=$(APIGEE_DEVPORTAL_USERNAME) -Dppassword=$(APIGEE_DEVPORTAL_PASSWORD)
+  #displayName: 'Publish Open API Spec'
+  #condition: eq(variables['Build.SourceBranchName'], 'prod')
